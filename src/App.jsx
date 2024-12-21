@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { Auth } from "./pages/auth/Auth";
-import { SignupCard } from "./components/organisms/auth/SignupCard";
-import { SigninCard } from "./components/organisms/auth/SigninCard";
+import { Auth } from "@/pages/auth/Auth";
+import { SignupCard } from "@/components/organisms/auth/SignupCard";
+import { SigninCard } from "@/components/organisms/auth/SigninCard";
+import { NotfoundPage } from "@/pages/notFound/Notfound";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           </Auth>
         }
       />
+
+      <Route path="/*" element={<NotfoundPage />} />
     </Routes>
   );
 }
