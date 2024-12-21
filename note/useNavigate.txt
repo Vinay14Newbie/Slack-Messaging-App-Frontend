@@ -1,0 +1,33 @@
+
+The difference between the Link (and NavLink and Navigate) components and the navigate function returned by the useNavigate hook is effectively the same difference between Declarative and Imperative programming.
+
+Declarative vs Imperative Programming
+
+Declarative programming is a paradigm describing WHAT the program does, without explicitly specifying its control flow. Imperative programming is a paradigm describing HOW the program should do something by explicitly specifying each instruction (or statement) step by step, which mutate the program's state.
+
+Imperative programming – focuses on how to execute, defines control flow as statements that change a program state.
+Declarative programming – focuses on what to execute, defines program logic, but not detailed control flow.
+With the Link (and NavLink and Navigate) components you effectively declare, or defer, what you want to happen, and the component handles getting it done and executing it. These are declarative navigation actions.
+
+Example declarative link:
+
+<Link to="page">Page</Link>
+
+It only specifies the target it wants to get to, but doesn't explain how to get there.
+
+With the navigate function you are explicitly issuing a command to navigate now, immediately. This is an imperative action.
+
+Example imperative link:
+
+<Link
+  to="page"
+  onClick={(e) => {
+    e.preventDefault();
+    navigate("page");
+  }}
+>
+  Page
+</Link>
+This version explicitly explains that if clicked on run this specific logic to navigate to this page.
+
+Note also that Link is a React component and as such it must be rendered into the DOM as part of the return from a React component, whereas the navigate function is a function and can be used in callbacks.
