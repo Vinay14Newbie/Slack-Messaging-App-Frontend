@@ -1,0 +1,39 @@
+What is TanStack Query (React Query)?
+TanStack Query is a powerful data-fetching and state management library for React (and other frameworks) that simplifies the process of fetching, caching, synchronizing, and updating server state in your applications. It helps you manage asynchronous data in a more efficient and declarative way.
+
+Key Features of TanStack Query:
+
++ Data Fetching: Simplifies the process of fetching data from APIs.
++ Caching: Automatically caches fetched data to minimize unnecessary network requests.
++ Automatic Refetching: Keeps your data up-to-date by refetching it under certain conditions (e.g., when the window refocuses).
++ Pagination & Infinite Queries: Handles complex data fetching scenarios like pagination and infinite scrolling with ease.
++ Mutations: Manages data modifications (create, update, delete) on the server.
++ DevTools: Provides developer tools to inspect and manage your queries and mutations.
+
+How Does TanStack Query Work?
+
+TanStack Query operates by managing the state of your server data outside of your React components. It uses a query cache to store and manage data, ensuring that your UI stays in sync with your server without requiring you to manually handle loading states or data updates.
+
+
+Basic Usage Example:
+
+
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+function App() {
+  const { data, error, isLoading } = useQuery(['todos'], () =>
+    axios.get('/api/todos').then(res => res.data)
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
+
+  return (
+    <ul>
+      {data.map(todo => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
+    </ul>
+  );
+}
