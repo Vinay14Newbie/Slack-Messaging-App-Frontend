@@ -60,7 +60,7 @@ export const SignupCard = () => {
             placeholder="Confirm Passowrd"
             required
             onChange={(e) =>
-              setSignupForm({ ...signupForm, password: e.target.value })
+              setSignupForm({ ...signupForm, confirmPassword: e.target.value })
             }
             value={signupForm.confirmPassword}
             type="password"
