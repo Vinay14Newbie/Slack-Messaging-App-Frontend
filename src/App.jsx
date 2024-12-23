@@ -3,7 +3,8 @@ import { Auth } from "@/pages/auth/Auth";
 import { SigninCard } from "@/components/organisms/auth/SigninCard";
 import { NotfoundPage } from "@/pages/notFound/Notfound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SignupContainer } from "./components/organisms/auth/SignupContainer";
+import { SignupContainer } from "@/components/organisms/auth/SignupContainer";
+import { Toaster } from "@/components/ui/toaster";
 
 function App() {
   const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ function App() {
 
         <Route path="/*" element={<NotfoundPage />} />
       </Routes>
+      <Toaster />
     </QueryClientProvider>
   );
 }
