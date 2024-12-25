@@ -1,0 +1,20 @@
+const App = () => {
+  // ... some code
+  return (
+    <>
+     <ReduxProvider value={store}>
+      <ThemeProvider value={theme}>
+       <OtherProvider value={otherValue}>
+        <OtherOtherProvider value={otherOtherValue}>
+         {/** ... other providers*/}
+                                <HellProvider value={hell}>
+                                  <HelloWorld />
+                                </HellProvider>
+         {/** ... other providers*/}
+        </OtherOtherProvider>
+       </OtherProvider>
+      </ThemeProvider>
+     </ReduxProvider>
+    </>
+  )
+}
