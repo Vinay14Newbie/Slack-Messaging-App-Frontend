@@ -12,7 +12,7 @@ export const useCreateWorkspace = () => {
   } = useMutation({
     // passing multiple arguments to 'mutationFn'
     mutationFn: (data) => {
-      createWorkspaceRequest({ ...data, token: auth?.token });
+      return createWorkspaceRequest({ ...data, token: auth?.token });
     },
     onSuccess: (response) => {
       console.log("Response in create workspace: ", response);
