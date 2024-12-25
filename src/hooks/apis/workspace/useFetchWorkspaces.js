@@ -10,11 +10,10 @@ export const useFetchWorkspaces = () => {
     error,
     data: workspaces,
   } = useQuery({
-    // passing multiple arguments to 'mutationFn'
     queryFn: () => {
-      fetchWorkspacesRequest({ token: auth?.token });
+      return fetchWorkspacesRequest({ token: auth?.token }); //return the result
     },
-    queryKey: "fetchWorkspaces", // helps cache and differentiate queries.
+    queryKey: ["fetchWorkspaces"], // helps cache and differentiate queries.
     staleTime: 30000, // reduces refetching for frequently used queries by considering data fresh for a specified time.
   });
 
