@@ -7,9 +7,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export const UserButton = () => {
-  const { auth } = useAuth();
+  const { toast } = useToast();
+  const { navigate } = useNavigate();
+  const { auth, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    toast({
+      title: "Successfully signed out",
+      type: "success",
+    });
+    navigate("/auth/signin");
+  };
 
   return (
     <DropdownMenu>
@@ -26,7 +39,7 @@ export const UserButton = () => {
           <SettingsIcon className="size-4 mr-2 h-10" />
           Settings
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           <LogOutIcon className="size-4 mr-2 h-10" />
           Logout
         </DropdownMenuItem>
