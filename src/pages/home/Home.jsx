@@ -1,8 +1,11 @@
 import { UserButton } from "@/components/atoms/UserButton";
 import { useFetchWorkspaces } from "@/hooks/apis/workspace/useFetchWorkspaces";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const { isFetching, workspaces } = useFetchWorkspaces();
   //useQuery: Automatically executes the queryFn on component mount or when its queryKey changes.
   // React will not automatically invoke the mutation function. Unlike useQuery, which runs automatically to fetch data, useMutation is explicitly designed to be triggered only when called.
@@ -13,8 +16,10 @@ export const Home = () => {
 
     if (workspaces.length === 0 || !workspaces) {
       console.log("No workspaces found, create one");
+    } else {
+      navigate(`/workspaces/${workspaces[0]._id}`);
     }
-  }, [isFetching, workspaces]);
+  }, [isFetching, workspaces, navigate]);
 
   return (
     <>
