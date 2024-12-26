@@ -11,7 +11,8 @@ export const useGetWorkspaceById = (id) => {
     error,
     data: workspace,
   } = useQuery({
-    queryFn: (id) =>
+    //The queryFn does not receive parameters directly when useQuery is used.
+    queryFn: () =>
       fetchWorkspaceDetailsByIdRequest({ workspaceId: id, token: auth?.token }),
     queryKey: [`fetchWorkspaceById-${id}`], //for caching the multiple workspace
     staleTime: 10000,
