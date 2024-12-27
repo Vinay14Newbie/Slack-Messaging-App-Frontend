@@ -6,11 +6,20 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
+import { useWorkspacePreferenceModal } from "@/hooks/context/useWorkspacePreferenceModal";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ChevronDown, ListFilterIcon, SquarePenIcon } from "lucide-react";
+import { useEffect } from "react";
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const workspaceMembers = workspace?.members;
+
+  const { setOpenWorkspacePreferenceModal, openWorkspacePreferenceModal } =
+    useWorkspacePreferenceModal();
+
+  useEffect(() => {
+    console.log("Open workspace preference is", openWorkspacePreferenceModal);
+  }, [openWorkspacePreferenceModal]);
 
   const { auth } = useAuth();
   console.log("Auth in workspace panel header : ", auth);
@@ -49,7 +58,10 @@ export const WorkspacePanelHeader = ({ workspace }) => {
 
           {isLoggedInUserAdminOfWorkspace && (
             <div>
-              <DropdownMenuItem className="cursor-pointer py-2">
+              <DropdownMenuItem
+                className="cursor-pointer py-2"
+                onClick={() => setOpenWorkspacePreferenceModal(true)}
+              >
                 Preference
               </DropdownMenuItem>
               <DropdownMenuSeparator />
