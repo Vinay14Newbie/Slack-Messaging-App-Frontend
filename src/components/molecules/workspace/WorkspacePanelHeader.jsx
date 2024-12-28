@@ -14,12 +14,8 @@ import { useEffect } from "react";
 export const WorkspacePanelHeader = ({ workspace }) => {
   const workspaceMembers = workspace?.members;
 
-  const { setOpenWorkspacePreferenceModal, openWorkspacePreferenceModal } =
+  const { setOpenWorkspacePreferenceModal, setInitialValue } =
     useWorkspacePreferenceModal();
-
-  useEffect(() => {
-    console.log("Open workspace preference is", openWorkspacePreferenceModal);
-  }, [openWorkspacePreferenceModal]);
 
   const { auth } = useAuth();
   console.log("Auth in workspace panel header : ", auth);
@@ -60,7 +56,10 @@ export const WorkspacePanelHeader = ({ workspace }) => {
             <div>
               <DropdownMenuItem
                 className="cursor-pointer py-2"
-                onClick={() => setOpenWorkspacePreferenceModal(true)}
+                onClick={() => {
+                  setOpenWorkspacePreferenceModal(true);
+                  setInitialValue(workspace?.name);
+                }}
               >
                 Preference
               </DropdownMenuItem>
