@@ -25,7 +25,7 @@ export const SideBarItem = ({ label, id, icon: Icon, variant }) => {
       className={cn(sideBarItemVariants({ variant }))}
     >
       <Link
-        className="flex items-center gap-1.5"
+        className="flex items-center gap-1.5 w-full"
         to={`/workspaces/${workspaceId}/channels/${id}`}
       >
         <Icon className="size-3.5 mr-1" />
