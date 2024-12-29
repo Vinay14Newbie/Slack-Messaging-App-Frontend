@@ -1,4 +1,4 @@
-const { createContext, useState } = require("react");
+import { createContext, useState } from "react";
 
 const CreateChannelModalContext = createContext();
 

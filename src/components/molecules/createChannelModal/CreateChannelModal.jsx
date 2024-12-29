@@ -10,7 +10,7 @@ import { useCreateChannelModal } from "@/hooks/context/useCreateChannelModal";
 import { useState } from "react";
 
 export const CreateChannelModal = () => {
-  const [openCreateChannelModal, setOpenCreateChannelModal] =
+  const { openCreateChannelModal, setOpenCreateChannelModal } =
     useCreateChannelModal();
   const [channelName, setChannelName] = useState("");
 
