@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 export const CreateWorkspaceModal = function () {
   const queryClient = useQueryClient();
 
-  const { openCreateChannelModal, setOpenCreateChannelModal } =
+  const { openCreateWorkspaceModal, setOpenCreateWorkspaceModal } =
     useCreateWorkspaceModal();
 
   const { isPending, createWorkspaceMutation } = useCreateWorkspace();
@@ -25,7 +25,7 @@ export const CreateWorkspaceModal = function () {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setOpenCreateChannelModal(false);
+    setOpenCreateWorkspaceModal(false);
   };
 
   async function handleFormSubmit(e) {
@@ -39,11 +39,11 @@ export const CreateWorkspaceModal = function () {
       console.log("Not able to create new workspace: ", error);
     } finally {
       setWorkspaceName("");
-      setOpenCreateChannelModal(false);
+      setOpenCreateWorkspaceModal(false);
     }
   }
   return (
-    <Dialog open={openCreateChannelModal} onOpenChange={handleClose}>
+    <Dialog open={openCreateWorkspaceModal} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new workspace</DialogTitle>
