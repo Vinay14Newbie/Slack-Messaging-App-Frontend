@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useGetWorkspaceById } from "@/hooks/apis/workspace/useGetWorkspaceById";
+import { useCurrentWorkspace } from "@/hooks/context/useCurrentWorkspace";
 import { InfoIcon, LucideLoader2, SearchIcon } from "lucide-react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const WorkspaceNavbar = () => {
@@ -9,6 +11,13 @@ export const WorkspaceNavbar = () => {
   console.log("Workspace id printed: ", workspaceId);
 
   const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
+  const { setCurrentWorkspace } = useCurrentWorkspace();
+
+  useEffect(() => {
+    if (workspace) {
+      setCurrentWorkspace(workspace);
+    }
+  }, [workspace, setCurrentWorkspace]);
 
   if (isFetching) {
     return <LucideLoader2 className="animate-spin ml-2" />;
