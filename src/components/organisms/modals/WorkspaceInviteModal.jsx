@@ -26,7 +26,16 @@ export const WorkspaceInviteModal = ({
   };
 
   async function handleCopy() {
-    const inviteLink = `${joinCode}`;
+    const code = `${joinCode}`;
+    await navigator.clipboard.writeText(code);
+    toast({
+      title: "Join code copied to clipboard",
+      type: "success",
+    });
+  }
+
+  async function handleCopyLink() {
+    const inviteLink = `${window.location.origin}/workspaces/join/${workspaceId}`;
     await navigator.clipboard.writeText(inviteLink);
     toast({
       title: "Link copied to clipboard",
@@ -42,7 +51,7 @@ export const WorkspaceInviteModal = ({
         type: "success",
       });
     } catch (error) {
-      console.log("Failed to reset joinCode of Workspace");
+      console.log("Failed to reset joinCode of Workspace", error);
       throw error;
     }
   };
@@ -59,19 +68,25 @@ export const WorkspaceInviteModal = ({
         <div className="flex flex-col items-center justify-center py-10 gap-y-4">
           <p className="font-bold text-4xl uppercase">{joinCode}</p>
           <Button onClick={handleCopy} size="sm" variant="ghost">
-            Copy Link
+            Copy Code
             <Copy className="size-4 ml-2" />
           </Button>
 
           {/* Link to redirect the user in a new tab to the join page */}
-          <a
-            href={`/workspaces/join/${workspaceId}`}
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-500 hover:underline"
-          >
-            Redirect to join page
-          </a>
+          <div>
+            <a
+              href={`/workspaces/join/${workspaceId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-500 hover:underline mr-2"
+            >
+              Redirect to join page
+            </a>
+            <Button onClick={handleCopyLink} size="sm" variant="ghost">
+              Copy Link
+              <Copy className="size-4 ml-2" />
+            </Button>
+          </div>
         </div>
 
         <div className="flex justify-center items-center">
