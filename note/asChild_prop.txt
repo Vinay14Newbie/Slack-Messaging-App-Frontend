@@ -1,0 +1,1 @@
+This prop allows you to replace the default component with a custom child element while keeping the defined classes.
