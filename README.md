@@ -58,3 +58,8 @@ export default [
 ```
 
 #### Atom Design: [Link](https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97)
+
+### 3. quill
+
+Quill is a lightweight, open-source WYSIWYG (What You See Is What You Get) text editor.
+It provides a rich editing experience with features like text formatting (bold, italic), embedding links/images, and lists.
