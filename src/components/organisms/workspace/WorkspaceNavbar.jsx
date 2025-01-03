@@ -1,23 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { useGetWorkspaceById } from "@/hooks/apis/workspace/useGetWorkspaceById";
+import { useAuth } from "@/hooks/context/useAuth";
 import { useCurrentWorkspace } from "@/hooks/context/useCurrentWorkspace";
+import { toast } from "@/hooks/use-toast";
 import { InfoIcon, LucideLoader2, SearchIcon } from "lucide-react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const WorkspaceNavbar = () => {
   const { workspaceId } = useParams();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   console.log("Workspace id printed: ", workspaceId);
 
-  const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
+  const { isFetching, isSuccess, error, workspace } =
+    useGetWorkspaceById(workspaceId);
   const { setCurrentWorkspace } = useCurrentWorkspace();
 
   useEffect(() => {
+    if (!isSuccess && !isFetching && error) {
+      if (error.status === 403) {
+        logout();
+        toast({
+          title: "Session expired...! Redirecting to the signin page",
+          type: "error",
+        });
+        navigate(`/auth/signin`);
+      }
+    }
+
     if (workspace) {
       setCurrentWorkspace(workspace);
     }
-  }, [workspace, setCurrentWorkspace]);
+  }, [workspace, setCurrentWorkspace, isSuccess, isFetching, error]);
 
   if (isFetching) {
     return <LucideLoader2 className="animate-spin ml-2" />;

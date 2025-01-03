@@ -11,7 +11,7 @@ export const createWorkspaceRequest = async ({ name, description, token }) => {
     return response?.data?.data;
   } catch (error) {
     console.log("Error while creating a new Workspace: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -24,7 +24,7 @@ export const fetchWorkspacesRequest = async ({ token }) => {
     return response?.data?.data;
   } catch (error) {
     console.log("Error while fetching the workspaces: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -40,7 +40,7 @@ export const fetchWorkspaceDetailsByIdRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error while fetching a workspace by id: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -59,7 +59,7 @@ export const updateWorkspaceDetailsRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error while updating the Workspace: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -72,7 +72,7 @@ export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
     return response?.data?.data;
   } catch (error) {
     console.log("Error while deleting the workspace: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -91,7 +91,7 @@ export const addChannelToWorkspaceRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error while creating a new Channel: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -113,7 +113,7 @@ export const resetJoinCodeOfWorkspaceRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error while reseting the joinCode of workspace in request");
-    throw error.response.data;
+    throw error.response;
   }
 };
 
@@ -133,6 +133,6 @@ export const joinWorkspaceByJoinCodeRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error while joining the workspace: ", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
