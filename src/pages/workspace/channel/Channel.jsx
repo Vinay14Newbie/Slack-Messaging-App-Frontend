@@ -26,7 +26,7 @@ export const Channel = () => {
   }
   return (
     <div className="flex flex-col h-full">
-      <ChannelHeader name={channel?.name} />
+      <ChannelHeader name={channel?.name} channelId={channelId} />
       <div className="flex-1" />
       <ChatInput />
     </div>
