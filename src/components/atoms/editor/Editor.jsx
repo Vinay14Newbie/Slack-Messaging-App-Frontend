@@ -2,6 +2,7 @@ import "quill/dist/quill.snow.css";
 
 import Quill from "quill";
 import { useEffect, useRef, useState } from "react";
+import { MdSend } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { PiTextAa } from "react-icons/pi";
 import { Hint } from "../hint/Hint";
@@ -72,12 +73,12 @@ export const Editor = ({
       },
     };
 
-    const quill = new Quill(editorContainer, options);
+    const quill = new Quill(editorContainer, options); //This creates a new Quill editor instance inside editorContainer
 
-    quillRef.current = quill;
-    quillRef.current.focus();
+    quillRef.current = quill; //store a reference to the Quill instance. By storing the instance, you can access or manipulate the editor later (e.g., to get its content or reset it).
+    quillRef.current.focus(); //It places the cursor in the editor automatically when it loads, making it ready for the user to type.
 
-    quill.setContents(defaultValueRef.current);
+    quill.setContents(defaultValueRef.current); //This initializes the editor with some pre-existing content if needed.
   }, []);
 
   return (
@@ -97,6 +98,20 @@ export const Editor = ({
               onClick={toggleToolbar}
             >
               <PiTextAa className="size-4" />
+            </Button>
+          </Hint>
+
+          <Hint label={"Send Message"} side="bottom" align="center">
+            <Button
+              size="iconSm"
+              className="ml-auto bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
+              onClick={() => {
+                onSubmit({
+                  body: JSON.stringify(quillRef.current?.getContents()),
+                });
+              }}
+            >
+              <MdSend className="size-4" />
             </Button>
           </Hint>
         </div>
