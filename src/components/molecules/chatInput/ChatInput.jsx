@@ -1,8 +1,28 @@
 import { Editor } from "@/components/atoms/editor/Editor";
+import { useAuth } from "@/hooks/context/useAuth";
+import { useCurrentWorkspace } from "@/hooks/context/useCurrentWorkspace";
+import { useSocket } from "@/hooks/context/useSocket";
 
 export const ChatInput = () => {
+  const { socket, currentChannel } = useSocket();
+  const { auth } = useAuth();
+  const { currentWorkspace } = useCurrentWorkspace();
+
   async function handleSubmit({ body }) {
-    console.log(body);
+    console.log(body, "auth id: ", auth?.user);
+
+    socket?.emit(
+      "NewMessage",
+      {
+        channelId: currentChannel,
+        body,
+        senderId: auth?.user?.id,
+        workspaceId: currentWorkspace?._id,
+      },
+      (data) => {
+        console.log("Message sent: ", data);
+      }
+    );
   }
 
   return (
