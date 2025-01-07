@@ -1,0 +1,3 @@
+Made a messageList state in a context level.
+Whenever messages being loaded from the channel in Channel.jsx file messageList will be updated
+So Whenever user make new message, the message will be stored in the db, & it calls a callback by event NewMessageReceived so in socket context we're hearing to this event and updating our messageList

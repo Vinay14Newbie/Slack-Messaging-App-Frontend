@@ -7,12 +7,12 @@ import { useChannelMessages } from "@/hooks/context/useChannelMessages";
 import { useSocket } from "@/hooks/context/useSocket";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 export const Channel = () => {
   const { channelId } = useParams();
-  const { channel, isFetching, error } = useGetChannelById(channelId);
+  const { channel, isFetching, isError } = useGetChannelById(channelId);
   const { joinChannel } = useSocket();
   const { messageList, setMessageList } = useChannelMessages();
   const {
@@ -22,17 +22,27 @@ export const Channel = () => {
   } = useGetChannelMessages(channelId);
   const queryClient = useQueryClient();
 
+  // useRef provides a way to directly reference a DOM element without causing re-renders when the reference value changes. Unlike useState, changes to a ref don't trigger component updates, making it efficient for operations like DOM manipulation.
+  const messageContainerListRef = useRef(null);
+
   useEffect(() => {
-    if (!isFetching && !error) {
+    if (messageContainerListRef.current) {
+      messageContainerListRef.current.scrollTop =
+        messageContainerListRef.current.scrollHeight;
+    }
+  }, [messageList]);
+
+  useEffect(() => {
+    if (!isFetching && !isError) {
       joinChannel(channelId);
     }
     console.log("messages: ", messages);
-  }, [isFetching, error, messages]);
+  }, [isFetching, isError, channelId, joinChannel]);
 
   useEffect(() => {
     if (successInMessages) {
       console.log("Channel messages fetched");
-      setMessageList(messages);
+      setMessageList(messages.reverse());
     }
   }, [successInMessages, messages, channelId, setMessageList]);
 
@@ -48,7 +58,7 @@ export const Channel = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className="h-full flex flex-1 flex-col gap-y-2 items-center justify-center">
         <TriangleAlertIcon className="size-6 text-muted-foreground" />
@@ -59,8 +69,11 @@ export const Channel = () => {
   return (
     <div className="flex flex-col h-full">
       <ChannelHeader name={channel?.name} channelId={channelId} />
-      {messageList &&
-        messageList.map((message) => {
+      <div
+        ref={messageContainerListRef}
+        className="flex-5 overflow-y-auto p-5 gap-y-2"
+      >
+        {messageList?.map((message) => {
           return (
             <Message
               key={message._id}
@@ -71,6 +84,7 @@ export const Channel = () => {
             />
           );
         })}
+      </div>
       <div className="flex-1" />
       <ChatInput />
     </div>
