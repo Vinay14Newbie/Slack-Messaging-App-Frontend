@@ -1,0 +1,3 @@
+So we've to upload image on the s3 by client directly..
+
+First we need to generate the presigned url for that, using this presigned url we can directly upload the image/file to s3 bucket.

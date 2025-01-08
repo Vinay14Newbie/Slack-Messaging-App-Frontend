@@ -81,6 +81,7 @@ export const Channel = () => {
               authorImage={message.senderId.avatar}
               authorName={message.senderId.username}
               createdAt={message.createdAt}
+              image={message.image}
             />
           );
         })}
