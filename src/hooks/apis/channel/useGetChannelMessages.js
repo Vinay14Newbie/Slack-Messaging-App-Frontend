@@ -20,6 +20,7 @@ export const useGetChannelMessages = (channelId) => {
         offset: 0,
       }),
     queryKey: [`getPaginatedMessages`],
+    cacheTime: 0,
   });
 
   return {
