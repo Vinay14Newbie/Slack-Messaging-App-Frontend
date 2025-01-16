@@ -7,19 +7,27 @@ import { useChannelMessages } from "@/hooks/context/useChannelMessages";
 import { useSocket } from "@/hooks/context/useSocket";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const Channel = () => {
   const { channelId } = useParams();
-  const { channel, isFetching, isError } = useGetChannelById(channelId);
+  const {
+    channel,
+    isFetching,
+    isError,
+    isSuccess: successInChannel,
+  } = useGetChannelById(channelId);
   const { joinChannel } = useSocket();
   const { messageList, setMessageList } = useChannelMessages();
+  const [limit, setLimit] = useState(20);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     isFetching: isFetchingMessages,
     messages,
     isSuccess: successInMessages,
-  } = useGetChannelMessages(channelId);
+  } = useGetChannelMessages({ channelId, limit: limit, page: page });
   const queryClient = useQueryClient();
 
   // useRef provides a way to directly reference a DOM element without causing re-renders when the reference value changes. Unlike useState, changes to a ref don't trigger component updates, making it efficient for operations like DOM manipulation.
@@ -30,7 +38,7 @@ export const Channel = () => {
       messageContainerListRef.current.scrollTop =
         messageContainerListRef.current.scrollHeight;
     }
-  }, [messageList]);
+  }, [messageList, isFetching]);
 
   useEffect(() => {
     if (!isFetching && !isError) {

@@ -2,7 +2,7 @@ import { getPaginateMessagesRequest } from "@/apis/channel";
 import { useAuth } from "@/hooks/context/useAuth";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetChannelMessages = (channelId) => {
+export const useGetChannelMessages = ({ channelId, limit, page }) => {
   const { auth } = useAuth();
 
   const {
@@ -16,11 +16,11 @@ export const useGetChannelMessages = (channelId) => {
       getPaginateMessagesRequest({
         channelId,
         token: auth?.token,
-        limit: 10,
-        offset: 0,
+        limit: limit || 10,
+        page: page || 0,
       }),
     queryKey: [`getPaginatedMessages`],
-    cacheTime: 0,
+    // cacheTime: 0,
   });
 
   return {

@@ -17,13 +17,13 @@ export const getPaginateMessagesRequest = async ({
   channelId,
   token,
   limit,
-  offset,
+  page,
 }) => {
   try {
     const response = await axios.get(`/messages/${channelId}`, {
       params: {
         limit: limit || 20,
-        offset: offset || 0,
+        page: page || 0,
       },
       headers: { "x-access-token": token },
     });

@@ -61,7 +61,7 @@ export const ChannelHeader = ({ name, channelId }) => {
   }
 
   return (
-    <div className="bg-white border-b h-[50px] flex items-center px-4 overflow-hidden">
+    <div className="bg-white border-b h-[50px] flex items-center px-4 py-4 overflow-hidden">
       <UpdateDialog />
       <Dialog>
         <DialogTrigger asChild>
