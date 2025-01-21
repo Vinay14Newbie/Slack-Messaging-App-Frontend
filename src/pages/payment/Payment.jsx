@@ -1,8 +1,9 @@
+import { RenderRazorpayPopup } from "@/components/molecules/renderRazorpayPopup/RenderRazorpayPopup";
 import { useCreateOrder } from "@/hooks/apis/payment/useCreateOrder";
 import { useState } from "react";
 
 export const Payment = () => {
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(null);
   const [orderResponse, setOrderResponse] = useState(null);
   const { createOrderMutation, isPending, isSuccess, error } = useCreateOrder();
 
@@ -43,6 +44,14 @@ export const Payment = () => {
             >
               Pay
             </button>
+            {isSuccess && (
+              <RenderRazorpayPopup
+                amount={amount * 100}
+                orderId={orderResponse?.data?.id}
+                keyId={import.meta.env.VITE_RAZORPAY_KEY_ID}
+                currency={"INR"}
+              />
+            )}
           </div>
         </form>
       </div>
