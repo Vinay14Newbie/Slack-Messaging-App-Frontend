@@ -55,6 +55,8 @@ export const RenderRazorpayPopup = ({ amount, orderId, keyId, currency }) => {
       name: "Vinay Duryodhan", //name of the company
       description: "Testing purpose",
       order_id: orderId,
+      // callback_url: "https://localhost:3000/api/payments/capture",  //webhook
+
       handler: async (response) => {
         console.log("Payment success", response);
         console.log("Signature ", response.razorpay_signature);
