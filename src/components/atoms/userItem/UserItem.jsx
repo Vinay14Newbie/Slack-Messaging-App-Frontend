@@ -1,33 +1,40 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useCurrentWorkspace } from "@/hooks/context/useCurrentWorkspace";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
-import { Link } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const userItemVariants = cva(
-  "flex items-center gap-1.5 justify-start font-normal h-7 mt-2 text-sm",
+  "flex items-center gap-1.5 justify-start font-normal h-7 mt-2 text-sm transition-colors",
   {
     variants: {
       variant: {
-        default: "text-[#f9edffcc]",
-        active: "text-[#481350] bg-white/90 hover:bg-white/80",
+        default: "text-[#f9edffcc]", // Default text color
+        active: "bg-gray-200", // Only background color changes when active
       },
     },
-    defaultVariants: "default",
+    defaultVariants: { variant: "default" },
   }
 );
 
-export const UserItem = ({ id, label = "Member", avatar, variant }) => {
-  const { workspace } = useCurrentWorkspace();
+export const UserItem = ({ id, label = "Member", avatar }) => {
+  const { workspaceId } = useParams();
+
   return (
-    <Button
-      className={cn(userItemVariants({ variant }))}
-      variant="transparent"
-      size="sm"
-      asChild
+    <NavLink
+      to={`/workspaces/${workspaceId}/members/${id}`}
+      className={({ isActive }) =>
+        cn(
+          "w-full flex items-center justify-start gap-2 rounded-md", // Base styles
+          isActive ? "bg-slack-dark" : "" // Apply bg-gray-200 only when active
+        )
+      }
     >
-      <Link to={`/workspaces/${workspace?._id}/members/${id}`}>
+      <Button
+        variant="transparent"
+        size="sm"
+        className="w-full flex items-center gap-2 justify-start"
+      >
         <Avatar>
           <AvatarImage src={avatar} className="rounded-md" />
           <AvatarFallback className="rounded-md bg-sky-500 text-white">
@@ -35,7 +42,7 @@ export const UserItem = ({ id, label = "Member", avatar, variant }) => {
           </AvatarFallback>
         </Avatar>
         <span className="text-sm truncate">{label}</span>
-      </Link>
-    </Button>
+      </Button>
+    </NavLink>
   );
 };

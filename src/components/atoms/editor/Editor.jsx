@@ -62,7 +62,7 @@ export const Editor = ({
             enter: {
               key: "Enter",
               handler: () => {
-                return;
+                send();
               },
             },
             shift_enter: {
@@ -84,6 +84,14 @@ export const Editor = ({
 
     quill.setContents(defaultValueRef.current); //This initializes the editor with some pre-existing content if needed.
   }, []);
+
+  const send = function () {
+    const messageContent = JSON.stringify(quillRef.current?.getContents());
+    onSubmit({ body: messageContent, image });
+    quillRef.current?.setText("");
+    setImage(null);
+    imageInputRef.current.value = "";
+  };
 
   return (
     <div className="flex flex-col">
@@ -150,15 +158,7 @@ export const Editor = ({
             <Button
               size="iconSm"
               className="ml-auto bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
-              onClick={() => {
-                const messageContent = JSON.stringify(
-                  quillRef.current?.getContents()
-                );
-                onSubmit({ body: messageContent, image });
-                quillRef.current?.setText("");
-                setImage(null);
-                imageInputRef.current.value = "";
-              }}
+              onClick={send}
               disabled={false}
             >
               <MdSend className="size-4" />

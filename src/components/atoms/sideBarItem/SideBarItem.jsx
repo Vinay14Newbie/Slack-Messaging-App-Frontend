@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 const sideBarItemVariants = cva(
   "flex items-center justify-start gap-1.5 font-normal h-7 px-[20px] text-sm overflow-hidden",
@@ -19,18 +19,24 @@ const sideBarItemVariants = cva(
 export const SideBarItem = ({ label, id, icon: Icon, variant }) => {
   const { workspaceId } = useParams();
   return (
-    <Button
-      variant="transparent"
-      size="sm"
-      className={cn(sideBarItemVariants({ variant }))}
+    <NavLink
+      className={({ isActive }) =>
+        cn(
+          "flex items-center gap-1.5 w-full", // Base styles
+          isActive ? "bg-slack-dark rounded-lg" : ""
+        )
+      }
+      to={`/workspaces/${workspaceId}/channels/${id}`}
     >
-      <Link
-        className="flex items-center gap-1.5 w-full"
-        to={`/workspaces/${workspaceId}/channels/${id}`}
+      <Button
+        variant="transparent"
+        size="sm"
+        className="w-full justify-start items-center gap-3"
+        // className={cn(sideBarItemVariants({ variant }))}
       >
         <Icon className="size-3.5 mr-1" />
         <span className="text-sm">{label}</span>
-      </Link>
-    </Button>
+      </Button>
+    </NavLink>
   );
 };
