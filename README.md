@@ -1,65 +1,61 @@
 # Slack Messaging App Frontend
 
-### 1. shadcn
+## Description
 
-[Setup shadcn with vite](https://ui.shadcn.com/docs/installation/vite)
+Full stack messaging web app, where users can send messages via channels or DM. Used socket.io for bidirectional communication with low latency. Used Zod validator and JWT tokens for secure user authentication and authorization. Employed Quill text editor. Architected scalable backend system utilizing Express.js for handling http requests. Leveraged MongoDB for efficient data storage, and used Mongoose as an ODM for easy and efficient data handling. Integrated Razorpay for payment gateway and AWS S3 bucket for media uploads with improving storage efficiency.
 
-### 2. eslint setup
+## App pic
 
-use this command: <code>npm install eslint-plugin-simple-import-sort </code>
+![App pic](src/assets//slack-app.png)
 
-paste this code inside the eslint file
+## Tech Stack
 
-```
-import js from "@eslint/js";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
-import globals from "globals";
-export default [
-  { ignores: ["dist"] },
-  {
-    files: ["**/*.{js,jsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        ecmaFeatures: { jsx: true },
-        sourceType: "module",
-      },
-    },
-    settings: { react: { version: "18.3" } },
-    plugins: {
-      react,
-      "simple-import-sort": simpleImportSort,
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
-    rules: {
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...react.configs["jsx-runtime"].rules,
-      ...reactHooks.configs.recommended.rules,
-      "react/jsx-no-target-blank": "off",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
-      semi: ["error", "always"],
-      quotes: ["error", "single"],
-      "react/prop-types": "off",
-    },
-  },
-];
+### **Frontend:**
+
+- React.js
+- Tailwind CSS
+
+### **Backend:**
+
+- Node.js
+- MongoDB
+- Express.js
+
+### **Integrations**
+
+- Socket.io
+- Razorpay
+- AWS s3
+
+## Setup Instructions
+
+### For frontend
+
+```bash
+git clone https://github.com/Vinay14Newbie/Slack-Messaging-App-Frontend.git
+cd Slack-Messaging-App-Frontend
 ```
 
-#### Atom Design: [Link](https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97)
+#### Install Dependencies
 
-### 3. quill
+```bash
+    npm install
+```
 
-Quill is a lightweight, open-source WYSIWYG (What You See Is What You Get) text editor.
-It provides a rich editing experience with features like text formatting (bold, italic), embedding links/images, and lists.
+#### Create .env File
+
+```bash
+VITE_BACKEND_API_URL=your_backend_url
+VITE_BACKEND_SOCKET_URL=your_backend_socket_url
+VITE_RAZORPAY_KEY_I=your_razorpay_key_id
+```
+
+#### Start the frontend server
+
+```bash
+    npm run dev
+```
+
+### For Backend
+
+Follow this: https://github.com/Vinay14Newbie/Slack-Messaging-App-Backend
